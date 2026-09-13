@@ -43,25 +43,14 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1.5">
             {navLinks.map((link) => {
-              const active = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`group relative rounded-lg px-3.5 py-1.5 text-sm font-medium border transition-all duration-200 ${
-                    active
-                      ? "text-white dark:text-white border-brand-500/70 bg-transparent shadow-[0_0_15px_-3px_rgba(16,185,129,0.35)]"
-                      : "text-slate-600 dark:text-slate-300 border-transparent hover:border-brand-500/60 dark:hover:border-brand-400/60 hover:text-slate-900 dark:hover:text-white bg-transparent hover:shadow-[0_0_18px_-3px_rgba(16,185,129,0.4)]"
-                  }`}
+                  className="group relative rounded-lg px-3.5 py-1.5 text-sm font-medium border border-transparent text-slate-400 dark:text-slate-300 hover:text-white hover:border-brand-500/70 bg-transparent hover:shadow-[0_0_18px_-2px_rgba(16,185,129,0.45)] transition-all duration-200"
                 >
-                  {/* Subtle animated bottom stroke line indicator */}
-                  <span
-                    className={`absolute bottom-0 left-3 right-3 h-[2px] rounded-full transition-all duration-300 ${
-                      active
-                        ? "bg-brand-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"
-                        : "bg-transparent group-hover:bg-brand-400 group-hover:shadow-[0_0_8px_rgba(16,185,129,0.8)]"
-                    }`}
-                  />
+                  {/* Glowing bottom stroke line - ONLY on mouse hover */}
+                  <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-transparent group-hover:bg-brand-400 group-hover:shadow-[0_0_10px_rgba(16,185,129,0.9)] transition-all duration-200" />
                   {link.label}
                 </Link>
               );
