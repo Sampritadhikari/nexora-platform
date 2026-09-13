@@ -41,19 +41,27 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1.5">
             {navLinks.map((link) => {
               const active = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative rounded-md px-3.5 py-1.5 text-sm font-medium transition-all duration-200 ${
+                  className={`group relative rounded-lg px-3.5 py-1.5 text-sm font-medium border transition-all duration-200 ${
                     active
-                      ? "text-brand-600 dark:text-brand-400 bg-brand-50/80 dark:bg-brand-950/50 shadow-sm shadow-brand-500/10 font-semibold"
-                      : "text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50/50 dark:hover:bg-brand-950/30 hover:shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)]"
+                      ? "text-white dark:text-white border-brand-500/70 bg-transparent shadow-[0_0_15px_-3px_rgba(16,185,129,0.35)]"
+                      : "text-slate-600 dark:text-slate-300 border-transparent hover:border-brand-500/60 dark:hover:border-brand-400/60 hover:text-slate-900 dark:hover:text-white bg-transparent hover:shadow-[0_0_18px_-3px_rgba(16,185,129,0.4)]"
                   }`}
                 >
+                  {/* Subtle animated bottom stroke line indicator */}
+                  <span
+                    className={`absolute bottom-0 left-3 right-3 h-[2px] rounded-full transition-all duration-300 ${
+                      active
+                        ? "bg-brand-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"
+                        : "bg-transparent group-hover:bg-brand-400 group-hover:shadow-[0_0_8px_rgba(16,185,129,0.8)]"
+                    }`}
+                  />
                   {link.label}
                 </Link>
               );
