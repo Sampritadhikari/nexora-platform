@@ -273,17 +273,22 @@ export default function HomePage() {
                 return (
                   <div
                     key={i}
-                    className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-7 hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+                    className="group relative rounded-2xl border border-slate-200 dark:border-[#1B2220] bg-white dark:bg-[#0E1211]/80 p-7 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] hover:border-brand-500/60 dark:hover:border-brand-500/60 shadow-sm hover:shadow-2xl hover:shadow-brand-500/15 cursor-pointer overflow-hidden"
                   >
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 mb-4">
-                      <Icon className="h-5 w-5" />
+                    {/* Ambient subtle light sheen inside card on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-500/[0.06] via-transparent to-gold-500/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                    <div className="relative z-10">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 mb-5 border border-brand-200/60 dark:border-brand-800/40 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white group-hover:shadow-[0_0_20px_-3px_rgba(16,185,129,0.5)] transition-all duration-300">
+                        <Icon className="h-5 w-5 transition-transform duration-300 group-hover:rotate-3" />
+                      </div>
+                      <h3 className="font-display text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                        {benefit.title}
+                      </h3>
+                      <p className="mt-2.5 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                        {benefit.desc}
+                      </p>
                     </div>
-                    <h3 className="font-display text-base font-bold text-slate-900 dark:text-slate-100">
-                      {benefit.title}
-                    </h3>
-                    <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-                      {benefit.desc}
-                    </p>
                   </div>
                 );
               })}
