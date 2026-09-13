@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #0A0D0C;
+  --card: #F8FAFC;
+  --card-foreground: #0A0D0C;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --primary: #059669;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F0FDF4;
+  --secondary-foreground: #064E3B;
+  --muted: #64748B;
+  --muted-foreground: #64748B;
+  --accent: #ECFDF5;
+  --accent-foreground: #047857;
+  --destructive: #EF4444;
+  --ring: #10B981;
+}
+
+.dark {
+  --background: #080B0A;
+  --foreground: #F8FAFC;
+  --card: #0E1211;
+  --card-foreground: #F8FAFC;
+  --border: #1B2220;
+  --input: #1B2220;
+  --primary: #10B981;
+  --primary-foreground: #FFFFFF;
+  --secondary: #131A18;
+  --secondary-foreground: #E2E8F0;
+  --muted: #8E9B96;
+  --muted-foreground: #8E9B96;
+  --accent: #131A18;
+  --accent-foreground: #34D399;
+  --destructive: #F87171;
+  --ring: #10B981;
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom crisp scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}

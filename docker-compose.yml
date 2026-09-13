@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: nexora_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: nexora
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nexora_api
+    restart: always
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgrespassword@db:5432/nexora
+      JWT_SECRET: nexora_super_secret_jwt_key_docker_2026!
+      APP_ENV: production
+      DOMAIN_PROVIDER: mock
+      HOSTING_PROVIDER: mock
+      PAYMENT_PROVIDER: mock
+      EMAIL_PROVIDER: mock
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: nexora_web
+    restart: always
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
