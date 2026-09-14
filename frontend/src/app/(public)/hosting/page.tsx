@@ -23,7 +23,7 @@ export default function HostingPage() {
 
       <main className="flex-1">
         {/* Header */}
-        <section className="py-16 lg:py-20 border-b border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30 text-center">
+        <section className="py-16 lg:py-20 border-b border-slate-200 dark:border-slate-800 bg-transparent text-center">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <Badge variant="brand" className="mb-4">
               Web & Cloud Hosting

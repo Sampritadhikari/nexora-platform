@@ -45,7 +45,7 @@
   border-color: var(--border);
 }
 
-/* Ultra-Premium Technical Grid & Luxury Architectural Texture */
+/* Ultra-Premium Cheques / Checkered Grid Texture */
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -54,41 +54,39 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Light Mode: Luxury Architectural Blueprint Paper Texture (Sharp slate-300 grid + precise micro-dots) */
+/* Light Mode: Luxury Crisp Architectural Cheques / Checkered Canvas */
 :root:not(.dark) body {
-  background-color: #fcfdfd;
+  background-color: #f8fafc;
   background-image:
-    /* Highlight dots at cross intersections */
-    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.45) 1.5px, transparent 1.5px),
-    /* Secondary subtle coordinate points */
-    radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.25) 1.2px, transparent 1.2px),
-    /* 32px Precision Grid Lines */
-    linear-gradient(to right, rgba(15, 23, 42, 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.07) 1px, transparent 1px),
-    /* 128px Major Architectural Guide Lines */
-    linear-gradient(to right, rgba(16, 185, 129, 0.1) 1.5px, transparent 1.5px),
-    linear-gradient(to bottom, rgba(16, 185, 129, 0.1) 1.5px, transparent 1.5px);
-  background-size: 32px 32px, 32px 32px, 32px 32px, 32px 32px, 128px 128px, 128px 128px;
-  background-position: 0 0, 16px 16px, 0 0, 0 0, 0 0, 0 0;
+    /* Primary 40px Checkered Squares */
+    linear-gradient(to right, rgba(15, 23, 42, 0.08) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.08) 1.5px, transparent 1.5px),
+    /* Secondary 20px Micro Check Sub-division */
+    linear-gradient(to right, rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+    /* Alternating subtle tinted check blocks for genuine checkered paper feel */
+    linear-gradient(45deg, rgba(15, 23, 42, 0.015) 25%, transparent 25%, transparent 75%, rgba(15, 23, 42, 0.015) 75%),
+    linear-gradient(45deg, rgba(15, 23, 42, 0.015) 25%, transparent 25%, transparent 75%, rgba(15, 23, 42, 0.015) 75%);
+  background-size: 40px 40px, 40px 40px, 20px 20px, 20px 20px, 80px 80px, 80px 80px;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 40px 40px;
   background-attachment: fixed;
 }
 
-/* Dark Mode: Deep Obsidian Cyber-Grid & Bare-Metal Server Matrix (Glowing Emerald Points + Carbon Meshes) */
+/* Dark Mode: Deep Obsidian Cyber-Cheques (Glow Emerald & Carbon Grid Squares) */
 .dark body {
   background-color: #080b0a;
   background-image:
-    /* Radiant Emerald Junction Nodes */
-    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.7) 1.5px, transparent 1.5px),
-    /* Subtle Gold Accent Points */
-    radial-gradient(circle at 0 0, rgba(245, 158, 11, 0.35) 1px, transparent 1px),
-    /* 32px Carbon Circuit Lines */
-    linear-gradient(to right, rgba(27, 38, 34, 0.85) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(27, 38, 34, 0.85) 1px, transparent 1px),
-    /* 128px Major Infrastructure Guide Rails */
-    linear-gradient(to right, rgba(16, 185, 129, 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(16, 185, 129, 0.15) 1px, transparent 1px);
-  background-size: 32px 32px, 32px 32px, 32px 32px, 32px 32px, 128px 128px, 128px 128px;
-  background-position: 0 0, 16px 16px, 0 0, 0 0, 0 0, 0 0;
+    /* Major 40px Emerald & Carbon Checkered Grid */
+    linear-gradient(to right, rgba(16, 185, 129, 0.18) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.18) 1.5px, transparent 1.5px),
+    /* 20px Intermediate Carbon Sub-checks */
+    linear-gradient(to right, rgba(27, 38, 34, 0.7) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(27, 38, 34, 0.7) 1px, transparent 1px),
+    /* Alternating deep obsidian check tiles for depth */
+    linear-gradient(45deg, rgba(16, 185, 129, 0.025) 25%, transparent 25%, transparent 75%, rgba(16, 185, 129, 0.025) 75%),
+    linear-gradient(45deg, rgba(16, 185, 129, 0.025) 25%, transparent 25%, transparent 75%, rgba(16, 185, 129, 0.025) 75%);
+  background-size: 40px 40px, 40px 40px, 20px 20px, 20px 20px, 80px 80px, 80px 80px;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 40px 40px;
   background-attachment: fixed;
 }
 
