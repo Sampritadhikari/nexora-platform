@@ -95,7 +95,7 @@ export default function HomePage() {
         </section>
 
         {/* TRUST INDICATORS */}
-        <section className="py-12 border-b border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-900/30">
+        <section className="py-12 border-b border-slate-200/80 dark:border-slate-800/80 bg-slate-50/40 dark:bg-slate-900/15 backdrop-blur-[2px]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div className="p-4">
@@ -181,7 +181,7 @@ export default function HomePage() {
         </section>
 
         {/* DOMAIN PRICING TABLE SECTION */}
-        <section className="py-16 bg-slate-50/60 dark:bg-slate-900/30 border-y border-slate-200/80 dark:border-slate-800/80">
+        <section className="py-16 bg-slate-50/40 dark:bg-slate-900/15 backdrop-blur-[2px] border-y border-slate-200/80 dark:border-slate-800/80">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
               <div>
@@ -297,7 +297,7 @@ export default function HomePage() {
         </section>
 
         {/* HOW IT WORKS */}
-        <section className="py-16 bg-slate-50/60 dark:bg-slate-900/30 border-y border-slate-200/80 dark:border-slate-800/80">
+        <section className="py-16 bg-slate-50/40 dark:bg-slate-900/15 backdrop-blur-[2px] border-y border-slate-200/80 dark:border-slate-800/80">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-xl mx-auto mb-12">
               <Badge variant="brand" className="mb-2">
