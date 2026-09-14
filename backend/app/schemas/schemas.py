@@ -232,6 +232,7 @@ class PaymentCreateIntentResponse(BaseModel):
     provider: str
     transaction_id: str
     client_token: str
+    key_id: Optional[str] = None
     notes: str
 
 class PaymentVerifyRequest(BaseModel):

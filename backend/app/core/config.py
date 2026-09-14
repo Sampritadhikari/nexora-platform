@@ -43,6 +43,8 @@ class Settings(BaseSettings):
     HOSTING_PROVIDER_API_SECRET: Optional[str] = None
     PAYMENT_PROVIDER_KEY_ID: Optional[str] = None
     PAYMENT_PROVIDER_KEY_SECRET: Optional[str] = None
+    RAZORPAY_KEY_ID: Optional[str] = "rzp_test_placeholder"
+    RAZORPAY_KEY_SECRET: Optional[str] = "rzp_test_secret_placeholder"
     EMAIL_PROVIDER_API_KEY: Optional[str] = None
     
     # Currency & Tax

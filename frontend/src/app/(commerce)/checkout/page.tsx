@@ -134,6 +134,63 @@ export default function CheckoutPage() {
       // 2. Request Payment Intent from backend
       const intent = await paymentsApi.createIntent(order.id, paymentMethod);
       setIntentData(intent);
+
+      // 3. Launch authentic Razorpay Checkout popup if loaded in window
+      if (typeof window !== "undefined" && (window as any).Razorpay && intent.key_id && !intent.key_id.startsWith("rzp_test_placeholder")) {
+        const options = {
+          key: intent.key_id,
+          amount: Math.round(intent.amount * 100),
+          currency: intent.currency || "INR",
+          name: "Nexora Cloud Technologies",
+          description: `Order #${intent.order_number}`,
+          order_id: intent.transaction_id,
+          prefill: {
+            name: billingName,
+            email: billingEmail,
+            contact: billingPhone,
+          },
+          theme: {
+            color: "#10B981", // Nexora Cyber Emerald
+          },
+          handler: async function (response: any) {
+            try {
+              setVerifying(true);
+              const verifyRes = await paymentsApi.verify({
+                order_id: intent.order_id,
+                transaction_id: response.razorpay_payment_id || intent.transaction_id,
+                client_token: `${response.razorpay_payment_id}:${response.razorpay_signature}`,
+                payment_method: paymentMethod,
+              });
+              clearCart();
+              setOrderComplete({
+                order_id: intent.order_id,
+                order_number: intent.order_number,
+                amount: intent.amount,
+                currency: intent.currency,
+                transaction_id: verifyRes.transaction_id || response.razorpay_payment_id,
+              });
+            } catch (err: any) {
+              setError(err.message || "Payment verification failed.");
+            } finally {
+              setVerifying(false);
+            }
+          },
+          modal: {
+            ondismiss: function () {
+              setLoading(false);
+            }
+          }
+        };
+
+        const rzp = new (window as any).Razorpay(options);
+        rzp.on("payment.failed", function (response: any) {
+          setError(response.error?.description || "Payment failed at gateway.");
+        });
+        rzp.open();
+        return;
+      }
+
+      // If development/test mode or keys not yet entered in .env, open official Razorpay 3D Secure modal
       setModalOpen(true);
     } catch (err: any) {
       setError(err.message || "Failed to initiate checkout. Please try again.");

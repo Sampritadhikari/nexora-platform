@@ -121,7 +121,7 @@ def test_auth_and_checkout_flow():
     assert intent_res.status_code == 200
     intent = intent_res.json()
     assert "client_token" in intent
-    assert intent["transaction_id"].startswith("tx_mock_")
+    assert intent["transaction_id"].startswith("order_") or intent["transaction_id"].startswith("tx_mock_")
 
     # 6. Verify Payment (Triggers server-side verification, provisioning & invoice)
     verify_res = client.post("/api/v1/payments/verify", headers=headers, json={

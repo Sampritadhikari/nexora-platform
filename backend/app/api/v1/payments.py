@@ -68,6 +68,7 @@ def create_payment_intent(
         provider=pay_res["provider"],
         transaction_id=pay_res["transaction_id"],
         client_token=pay_res["client_token"],
+        key_id=pay_res.get("key_id"),
         notes=pay_res.get("notes", "")
     )
 
