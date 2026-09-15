@@ -146,15 +146,6 @@ const FALLBACK_PLANS = [
   },
 ];
 
-const POPULAR_TLDS = [
-  { tld: ".com", price: 499, regular: 1199, badge: "Most Popular", tag: "Global" },
-  { tld: ".in", price: 399, regular: 899, badge: "Best Value", tag: "India" },
-  { tld: ".io", price: 1999, regular: 3499, badge: "Tech & SaaS", tag: "Developer" },
-  { tld: ".ai", price: 4999, regular: 7999, badge: "Trending", tag: "Next-Gen" },
-  { tld: ".org", price: 599, regular: 1299, badge: "Authority", tag: "Non-Profit" },
-  { tld: ".cloud", price: 299, regular: 999, badge: "Sale 70% Off", tag: "Cloud" },
-];
-
 const EDGE_LOCATIONS = [
   { city: "Mumbai, IN", code: "BOM-1", ping: "12 ms", status: "Operational", load: "24%" },
   { city: "Singapore, SG", code: "SIN-1", ping: "28 ms", status: "Operational", load: "38%" },
@@ -249,30 +240,9 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Live Hero Domain Search Component */}
-            <div className="mt-8 mb-8 max-w-3xl mx-auto">
+            {/* Live Hero Domain Search Component with integrated authoritative Trending TLD chips */}
+            <div className="mt-8 mb-10 max-w-3xl mx-auto">
               <DomainSearchBar />
-            </div>
-
-            {/* Trending TLD Price Chips */}
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-3xl mx-auto mb-10">
-              {POPULAR_TLDS.map((tld) => (
-                <Link
-                  key={tld.tld}
-                  href={`/domains?q=${encodeURIComponent(tld.tld)}`}
-                  className="group flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 px-3.5 py-1.5 text-xs font-medium shadow-sm hover:border-emerald-500/60 hover:shadow-md hover:bg-emerald-50/40 dark:hover:bg-slate-800 transition-all duration-200"
-                >
-                  <span className="font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors">
-                    {tld.tld}
-                  </span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
-                    {formatCurrency(tld.price)}
-                  </span>
-                  <span className="text-[10px] text-slate-400 line-through">
-                    {formatCurrency(tld.regular)}
-                  </span>
-                </Link>
-              ))}
             </div>
 
             {/* Action Buttons */}

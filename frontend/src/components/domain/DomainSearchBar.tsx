@@ -8,12 +8,33 @@ import { useCart } from "@/context/CartContext";
 import { Button } from "../ui/Button";
 import { Badge } from "../ui/Badge";
 
+export interface PopularTld {
+  tld: string;
+  price: number;
+  renewal: number;
+  tag?: string;
+}
+
+export const AUTHORITATIVE_TLDS: PopularTld[] = [
+  { tld: ".com", price: 899, renewal: 999, tag: "Global" },
+  { tld: ".in", price: 499, renewal: 599, tag: "India" },
+  { tld: ".org", price: 999, renewal: 1099, tag: "Authority" },
+  { tld: ".net", price: 949, renewal: 1049, tag: "Network" },
+  { tld: ".io", price: 2999, renewal: 3199, tag: "Tech & SaaS" },
+  { tld: ".tech", price: 599, renewal: 1299, tag: "Special" },
+];
+
 interface DomainSearchBarProps {
   initialQuery?: string;
   autoSearch?: boolean;
+  showPopularBadges?: boolean;
 }
 
-export function DomainSearchBar({ initialQuery = "", autoSearch = false }: DomainSearchBarProps) {
+export function DomainSearchBar({
+  initialQuery = "",
+  autoSearch = false,
+  showPopularBadges = true,
+}: DomainSearchBarProps) {
   const [query, setQuery] = useState(initialQuery);
   const [searching, setSearching] = useState(false);
   const [results, setResults] = useState<any[]>([]);
@@ -22,14 +43,15 @@ export function DomainSearchBar({ initialQuery = "", autoSearch = false }: Domai
 
   const { addItem, items } = useCart();
 
-  const handleSearch = async (e?: React.FormEvent) => {
+  const handleSearch = async (e?: React.FormEvent, customQuery?: string) => {
     if (e) e.preventDefault();
-    if (!query.trim()) return;
+    const q = (customQuery !== undefined ? customQuery : query).trim();
+    if (!q) return;
 
     try {
       setSearching(true);
       setError(null);
-      const res = await domainsApi.search(query.trim());
+      const res = await domainsApi.search(q);
       setResults(res.results);
       setHasSearched(true);
     } catch (err: any) {
@@ -39,11 +61,19 @@ export function DomainSearchBar({ initialQuery = "", autoSearch = false }: Domai
     }
   };
 
+  const handleTldClick = (tld: string) => {
+    const trimmed = query.trim();
+    const base = trimmed ? trimmed.replace(/\.[a-z0-9.]+$/i, "") : "mybrand";
+    const fullDomain = `${base}${tld}`;
+    setQuery(fullDomain);
+    handleSearch(undefined, fullDomain);
+  };
+
   React.useEffect(() => {
     if (autoSearch && initialQuery) {
-      handleSearch();
+      handleSearch(undefined, initialQuery);
     }
-  }, []);
+  }, [initialQuery, autoSearch]);
 
   const isDomainInCart = (domainName: string) => {
     return items.some((i) => i.product_reference.toLowerCase() === domainName.toLowerCase());
@@ -54,7 +84,7 @@ export function DomainSearchBar({ initialQuery = "", autoSearch = false }: Domai
       {/* Search Input Box */}
       <form
         onSubmit={handleSearch}
-        className="relative flex items-center rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl shadow-slate-900/5 p-1.5 transition-all focus-within:ring-2 focus-within:ring-brand-500 focus-within:border-brand-500"
+        className="relative flex items-center rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl shadow-slate-900/5 p-1.5 transition-all focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-emerald-500"
       >
         <div className="pl-3.5 text-slate-400">
           <Search className="h-5 w-5" />
@@ -76,26 +106,28 @@ export function DomainSearchBar({ initialQuery = "", autoSearch = false }: Domai
         </Button>
       </form>
 
-      {/* Popular TLD badges */}
-      {!hasSearched && (
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-          <span className="font-medium">Popular:</span>
-          {[
-            { tld: ".com", price: "₹899/yr" },
-            { tld: ".in", price: "₹499/yr" },
-            { tld: ".org", price: "₹999/yr" },
-            { tld: ".io", price: "₹2,999/yr" },
-          ].map((item) => (
+      {/* Authoritative Single TLD Pricing Chips */}
+      {!hasSearched && showPopularBadges && (
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 mr-1">
+            Trending:
+          </span>
+          {AUTHORITATIVE_TLDS.map((item) => (
             <button
               key={item.tld}
               type="button"
-              onClick={() => {
-                setQuery(`mybrand${item.tld}`);
-              }}
-              className="inline-flex items-center gap-1 rounded-md bg-slate-100 dark:bg-slate-800/80 px-2 py-1 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              onClick={() => handleTldClick(item.tld)}
+              className="group inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 px-3.5 py-1.5 text-xs font-medium shadow-sm hover:border-emerald-500/60 hover:shadow-md hover:bg-emerald-50/40 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
             >
-              <span className="font-bold">{item.tld}</span>
-              <span className="text-slate-400 dark:text-slate-500 text-[10px]">{item.price}</span>
+              <span className="font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                {item.tld}
+              </span>
+              <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
+                {formatCurrency(item.price)}
+              </span>
+              <span className="text-[10px] text-slate-400 line-through">
+                {formatCurrency(item.renewal)}
+              </span>
             </button>
           ))}
         </div>
@@ -113,7 +145,16 @@ export function DomainSearchBar({ initialQuery = "", autoSearch = false }: Domai
         <div className="mt-6 space-y-2.5">
           <div className="flex items-center justify-between px-1 pb-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             <span>Domain Availability Results</span>
-            <span>Registration Rate</span>
+            <button
+              type="button"
+              onClick={() => {
+                setHasSearched(false);
+                setResults([]);
+              }}
+              className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline normal-case font-medium"
+            >
+              Clear Results
+            </button>
           </div>
           {results.map((item) => {
             const inCart = isDomainInCart(item.domain_name);
