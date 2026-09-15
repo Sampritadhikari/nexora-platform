@@ -328,48 +328,102 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================
-            LIVE INTERACTIVE EDGE NETWORK & LATENCY SIMULATOR
+            LIVE INTERACTIVE EDGE NETWORK & LATENCY SIMULATOR (Glowing & Interactive)
            ======================================================== */}
         <section className="py-14 bg-slate-50/60 dark:bg-slate-900/30 border-b border-slate-200/80 dark:border-slate-800/80">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-sm">
-              <div className="max-w-md">
-                <div className="inline-flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-2 uppercase tracking-wider">
-                  <Activity className="h-4 w-4 animate-pulse" />
-                  Real-time Global Cloud Telemetry
-                </div>
-                <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                  Ultra-Fast Edge Routing Worldwide
-                </h3>
-                <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
-                  Our Anycast network connects your visitors to the nearest cloud pop with zero latency bottleneck.
-                </p>
-              </div>
+            {/* Outer Glowing Container Wrapper */}
+            <div className="relative rounded-3xl p-[1.5px] bg-gradient-to-r from-emerald-500/50 via-teal-400/30 to-emerald-500/50 shadow-[0_0_35px_-5px_rgba(16,185,129,0.25)] dark:shadow-[0_0_45px_-5px_rgba(16,185,129,0.35)] transition-all duration-300 hover:shadow-[0_0_50px_-2px_rgba(16,185,129,0.35)]">
+              {/* Inner Container Card with Glassmorphism */}
+              <div className="relative flex flex-col lg:flex-row items-center justify-between gap-8 rounded-[22px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl p-6 sm:p-8 overflow-hidden">
+                {/* Ambient Soft Glow Orbs */}
+                <div className="absolute -right-16 -top-16 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -left-16 -bottom-16 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 
-              {/* Edge Node Status Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full lg:w-auto">
-                {EDGE_LOCATIONS.map((node, i) => (
-                  <button
-                    key={node.code}
-                    type="button"
-                    onClick={() => setSelectedLocation(i)}
-                    className={`rounded-xl border p-3.5 text-left transition-all duration-200 ${
-                      selectedLocation === i
-                        ? "border-emerald-500 bg-emerald-50/60 dark:bg-emerald-950/40 shadow-sm ring-1 ring-emerald-500/50"
-                        : "border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 hover:border-slate-300"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400">{node.code}</span>
-                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-                    </div>
-                    <div className="text-xs font-bold text-slate-900 dark:text-white truncate">{node.city}</div>
-                    <div className="mt-2 flex items-center justify-between text-[11px]">
-                      <span className="font-bold text-emerald-600 dark:text-emerald-400">{node.ping}</span>
-                      <span className="text-slate-400">{node.status}</span>
-                    </div>
-                  </button>
-                ))}
+                {/* Left Telemetry Overview */}
+                <div className="max-w-md relative z-10">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/80 dark:border-emerald-800 text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-3 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_#10B981]"></span>
+                    </span>
+                    <span>LIVE GLOBAL CLOUD TELEMETRY</span>
+                  </div>
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+                    Ultra-Fast Edge Routing Worldwide
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Our Anycast network connects your visitors to the nearest cloud pop with zero latency bottleneck.
+                  </p>
+
+                  {/* Active Selected Node Live Indicator */}
+                  <div className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-slate-700 dark:text-slate-300 bg-slate-100/80 dark:bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-200/80 dark:border-slate-700/80">
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">Selected Node:</span>
+                    <span className="font-bold text-slate-900 dark:text-white">{EDGE_LOCATIONS[selectedLocation].city}</span>
+                    <span className="text-slate-300 dark:text-slate-600">•</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{EDGE_LOCATIONS[selectedLocation].ping}</span>
+                    <span className="text-slate-300 dark:text-slate-600">•</span>
+                    <span className="text-slate-500">Load {EDGE_LOCATIONS[selectedLocation].load}</span>
+                  </div>
+                </div>
+
+                {/* Glowing Interactive Edge Node Cards */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 w-full lg:w-auto relative z-10">
+                  {EDGE_LOCATIONS.map((node, i) => {
+                    const isSelected = selectedLocation === i;
+                    return (
+                      <button
+                        key={node.code}
+                        type="button"
+                        onClick={() => setSelectedLocation(i)}
+                        className={`group relative rounded-2xl p-4 text-left transition-all duration-300 ease-out cursor-pointer ${
+                          isSelected
+                            ? "border-2 border-emerald-500 bg-gradient-to-b from-emerald-500/[0.14] via-emerald-500/[0.04] to-white dark:to-slate-900 shadow-[0_0_25px_rgba(16,185,129,0.35)] ring-2 ring-emerald-400/40 -translate-y-1 scale-[1.03]"
+                            : "border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-800/60 shadow-sm hover:-translate-y-1.5 hover:scale-[1.04] hover:border-emerald-400 hover:shadow-[0_10px_25px_-5px_rgba(16,185,129,0.3)] hover:bg-gradient-to-b hover:from-emerald-500/[0.08] hover:to-white dark:hover:to-slate-800"
+                        }`}
+                      >
+                        {/* Glowing Indicator Dot */}
+                        <div className="flex items-center justify-between mb-2">
+                          <span
+                            className={`text-[11px] font-mono font-bold transition-colors ${
+                              isSelected
+                                ? "text-emerald-700 dark:text-emerald-300"
+                                : "text-slate-500 dark:text-slate-400 group-hover:text-emerald-600"
+                            }`}
+                          >
+                            {node.code}
+                          </span>
+                          <span className="relative flex h-2.5 w-2.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_10px_#10B981]"></span>
+                          </span>
+                        </div>
+
+                        {/* City Name */}
+                        <div
+                          className={`text-xs sm:text-sm font-bold transition-colors truncate ${
+                            isSelected
+                              ? "text-emerald-950 dark:text-white"
+                              : "text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-300"
+                          }`}
+                        >
+                          {node.city}
+                        </div>
+
+                        {/* Ping & Status with spacing */}
+                        <div className="mt-3 flex items-center justify-between gap-1.5 pt-2 border-t border-slate-100 dark:border-slate-800/80 text-[11px]">
+                          <span className="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                            <Zap className="h-3 w-3 text-emerald-500 animate-pulse" />
+                            {node.ping}
+                          </span>
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+                            {node.status}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
