@@ -33,6 +33,7 @@ import { hostingApi, domainsApi } from "@/lib/api";
 import { formatCurrency } from "@/lib/utils";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { LiveBackgroundTheme } from "@/components/layout/LiveBackgroundTheme";
 import { DomainSearchBar } from "@/components/domain/DomainSearchBar";
 import { HostingCard } from "@/components/hosting/HostingCard";
 import { Button } from "@/components/ui/Button";
@@ -210,10 +211,13 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground transition-colors duration-200">
+    <div className="relative flex min-h-screen flex-col bg-background text-foreground transition-colors duration-200 overflow-x-hidden">
+      {/* Live Animated Background Theme (Particles, Kinetic Beams, Ambient Aurora Orbs) */}
+      <LiveBackgroundTheme />
+
       <Navbar />
 
-      <main className="flex-1">
+      <main className="relative z-10 flex-1">
         {/* ========================================================
             HERO SECTION (Ultra-clean, crisp, attractive light aesthetic)
            ======================================================== */}
