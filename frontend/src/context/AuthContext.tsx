@@ -42,27 +42,61 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const loadUser = useCallback(async () => {
     try {
       const storedToken = localStorage.getItem("nexora_token");
-      const storedUser = localStorage.getItem("nexora_user");
+      const storedUserStr = localStorage.getItem("nexora_user");
       
       if (!storedToken) {
         setLoading(false);
         return;
       }
       setToken(storedToken);
+
+      // Extract Google profile picture claim if stored token is Google JWT
+      let googlePicture = "";
+      try {
+        if (storedToken && storedToken.includes(".")) {
+          const base64Url = storedToken.split(".")[1];
+          const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+          const jsonPayload = decodeURIComponent(
+            atob(base64)
+              .split("")
+              .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+              .join("")
+          );
+          const parsed = JSON.parse(jsonPayload);
+          if (parsed?.picture) {
+            googlePicture = parsed.picture;
+          }
+        }
+      } catch {}
       
-      if (storedUser) {
+      let currentUser: User | null = null;
+      if (storedUserStr) {
         try {
-          setUser(JSON.parse(storedUser));
+          currentUser = JSON.parse(storedUserStr);
+          if (googlePicture && (!currentUser?.avatar_url || !currentUser?.picture)) {
+            currentUser = {
+              ...currentUser!,
+              avatar_url: googlePicture,
+              picture: googlePicture,
+            };
+            localStorage.setItem("nexora_user", JSON.stringify(currentUser));
+          }
+          setUser(currentUser);
         } catch {}
       }
 
       try {
         const userData = await authApi.me();
-        setUser(userData);
-        localStorage.setItem("nexora_user", JSON.stringify(userData));
+        const mergedUser: User = {
+          ...userData,
+          avatar_url: userData.avatar_url || googlePicture || currentUser?.avatar_url || "",
+          picture: userData.picture || googlePicture || currentUser?.picture || "",
+        };
+        setUser(mergedUser);
+        localStorage.setItem("nexora_user", JSON.stringify(mergedUser));
       } catch (apiErr) {
         // If backend is unreachable or offline, keep cached session if valid
-        if (!storedUser) {
+        if (!currentUser) {
           localStorage.removeItem("nexora_token");
           setToken(null);
           setUser(null);

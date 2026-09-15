@@ -131,6 +131,7 @@ export function Navbar() {
                     <img
                       src={user.avatar_url}
                       alt={user.name || "User"}
+                      referrerPolicy="no-referrer"
                       className="h-10 w-10 rounded-full object-cover ring-2 ring-emerald-500/50 shadow-sm"
                     />
                   ) : (

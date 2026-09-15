@@ -52,7 +52,28 @@ export function UserProfileDropdown() {
 
   if (!user) return null;
 
-  const avatarUrl = user.avatar_url || user.picture;
+  // 1. Resolve avatar from user object, or decode storedToken as fallback
+  let avatarUrl = user.avatar_url || user.picture || "";
+  if (!avatarUrl && typeof window !== "undefined") {
+    try {
+      const storedToken = localStorage.getItem("nexora_token");
+      if (storedToken && storedToken.includes(".")) {
+        const base64Url = storedToken.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split("")
+            .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+            .join("")
+        );
+        const parsed = JSON.parse(jsonPayload);
+        if (parsed?.picture) {
+          avatarUrl = parsed.picture;
+        }
+      }
+    } catch {}
+  }
+
   const isGoogleAccount =
     !!avatarUrl?.includes("googleusercontent.com") ||
     user.email?.endsWith("@gmail.com");
@@ -91,6 +112,7 @@ export function UserProfileDropdown() {
             <img
               src={avatarUrl}
               alt={user.name || "User"}
+              referrerPolicy="no-referrer"
               onError={() => setImgError(true)}
               className="h-8 w-8 rounded-full object-cover ring-2 ring-emerald-500/40 group-hover:ring-emerald-500 transition-all shadow-sm"
             />
@@ -135,6 +157,7 @@ export function UserProfileDropdown() {
                 <img
                   src={avatarUrl}
                   alt={user.name || "User"}
+                  referrerPolicy="no-referrer"
                   className="h-11 w-11 rounded-full object-cover ring-2 ring-emerald-500/50 shadow-md"
                 />
               ) : (
