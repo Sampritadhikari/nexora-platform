@@ -124,12 +124,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setToken(res.access_token);
       setUser(res.user);
     } catch (err: any) {
+      const cleanEmail = email.toLowerCase().trim();
       // Demo / offline fallback for Vercel
-      if (email === "customer@nexora.io" || email.includes("customer")) {
+      if (cleanEmail === "customer@nexora.io") {
         const demoUser: User = {
           id: "demo-cust-1",
           name: "Alex Rivera",
-          email: email,
+          email: "customer@nexora.io",
           role: "CUSTOMER",
           status: "ACTIVE",
           created_at: new Date().toISOString(),
@@ -141,11 +142,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(demoUser);
         return;
       }
-      if (email === "admin@nexora.io" || email.includes("admin")) {
+      if (cleanEmail === "admin@nexora.io") {
         const demoUser: User = {
           id: "demo-admin-1",
           name: "Nexora Administrator",
-          email: email,
+          email: "admin@nexora.io",
           role: "ADMIN",
           status: "ACTIVE",
           created_at: new Date().toISOString(),
@@ -248,7 +249,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         user,
         token,
         isAuthenticated: !!user,
-        isAdmin: user?.role === "ADMIN",
+        isAdmin: Boolean(user && user.role && user.role.toUpperCase() === "ADMIN"),
         loading,
         login,
         register,

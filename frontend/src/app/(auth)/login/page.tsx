@@ -27,12 +27,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await login(email, password);
-      // If admin, redirect to admin; else dashboard
-      if (email.toLowerCase().includes("admin")) {
-        router.push("/admin");
-      } else {
-        router.push("/dashboard");
-      }
+      router.push("/dashboard");
     } catch (err: any) {
       setError(err.message || "Failed to authenticate. Please check your credentials.");
     } finally {
@@ -40,14 +35,9 @@ export default function LoginPage() {
     }
   };
 
-  const setDemoCredentials = (role: "admin" | "customer") => {
-    if (role === "admin") {
-      setEmail("admin@nexora.io");
-      setPassword("NexoraAdmin@2026!");
-    } else {
-      setEmail("customer@nexora.io");
-      setPassword("NexoraCustomer@2026!");
-    }
+  const setCustomerDemo = () => {
+    setEmail("customer@nexora.io");
+    setPassword("NexoraCustomer@2026!");
     setError(null);
   };
 
@@ -59,13 +49,13 @@ export default function LoginPage() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <div className="flex justify-center mb-6">
-          <BrandLogo href="/" size="lg" />
+          <BrandLogo href="/" size="lg" subtitle="Client Portal" />
         </div>
         <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-          Sign in to your account
+          Sign in to Customer Console
         </h2>
         <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-          Enter your credentials to access your domains and cloud infrastructure.
+          Access your registered domains, active cloud hosting packages, and billing.
         </p>
       </div>
 
@@ -87,7 +77,7 @@ export default function LoginPage() {
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-white dark:bg-slate-900 px-3 text-slate-400 font-medium">
-                  Or continue with email
+                  Or continue with customer email
                 </span>
               </div>
             </div>
@@ -95,7 +85,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
-              label="Email address"
+              label="Customer Email Address"
               type="email"
               required
               autoComplete="email"
@@ -127,31 +117,19 @@ export default function LoginPage() {
             </div>
 
             <Button type="submit" size="md" loading={loading} className="w-full mt-2">
-              Sign In
+              Sign In to Customer Console
             </Button>
           </form>
 
-          {/* Quick Demo Logins for Pair-Programming & Evaluation */}
-          <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">
-              Development Quick-Fill Credentials
-            </p>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setDemoCredentials("admin")}
-                className="rounded-lg border border-slate-200 dark:border-slate-700 py-1.5 px-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-              >
-                Admin Demo
-              </button>
-              <button
-                type="button"
-                onClick={() => setDemoCredentials("customer")}
-                className="rounded-lg border border-slate-200 dark:border-slate-700 py-1.5 px-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-              >
-                Customer Demo
-              </button>
-            </div>
+          {/* Customer Quick-Fill Demo */}
+          <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 text-center">
+            <button
+              type="button"
+              onClick={setCustomerDemo}
+              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 py-2 px-3 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            >
+              Fill Demo Customer (customer@nexora.io)
+            </button>
           </div>
         </div>
 
@@ -161,6 +139,16 @@ export default function LoginPage() {
             Register for free
           </Link>
         </p>
+
+        {/* Discreet link to administrative portal */}
+        <div className="mt-6 text-center">
+          <Link
+            href="/admin/login"
+            className="text-[11px] text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+          >
+            Staff & Administrator Access →
+          </Link>
+        </div>
       </div>
     </div>
   );

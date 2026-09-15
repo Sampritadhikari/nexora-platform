@@ -76,7 +76,7 @@ export function Navbar() {
               <Link href={isAdmin ? "/admin" : "/dashboard"} className="hidden sm:inline-flex">
                 <Button variant="outline" size="sm" className="gap-1.5 text-xs font-semibold hover:border-emerald-500/60 hover:shadow-sm transition-all duration-200">
                   <Server className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <span>{isAdmin ? "Admin Console" : "Dashboard"}</span>
+                  <span>{isAdmin ? "Admin Console" : "Customer Console"}</span>
                 </Button>
               </Link>
               <UserProfileDropdown />
@@ -151,7 +151,7 @@ export function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <Button className="w-full">
-                    {isAdmin ? "Admin Console" : "Customer Dashboard"}
+                    {isAdmin ? "Admin Console" : "Customer Console"}
                   </Button>
                 </Link>
                 <Button

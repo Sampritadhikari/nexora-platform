@@ -14,6 +14,7 @@ import {
   FileText,
   LifeBuoy,
   Shield,
+  LayoutDashboard,
   ChevronDown,
   Sun,
   Moon,
@@ -199,8 +200,12 @@ export function UserProfileDropdown() {
                 {user.email}
               </p>
               <div className="mt-1.5 flex items-center gap-1.5">
-                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
-                  {isAdmin ? "Admin" : "Active Tenant"}
+                <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                  isAdmin
+                    ? "bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300"
+                    : "bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300"
+                }`}>
+                  {isAdmin ? "Administrator" : "Customer Account"}
                 </span>
                 {isGoogleAccount && (
                   <span className="inline-flex items-center gap-1 text-[10px] text-slate-400 font-medium">
@@ -213,14 +218,25 @@ export function UserProfileDropdown() {
 
           {/* Navigation Links */}
           <div className="space-y-0.5">
-            <Link
-              href={isAdmin ? "/admin" : "/dashboard"}
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
-            >
-              <Shield className="h-4 w-4 text-emerald-500" />
-              <span>{isAdmin ? "Admin Console" : "Infrastructure Dashboard"}</span>
-            </Link>
+            {isAdmin ? (
+              <Link
+                href="/admin"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors"
+              >
+                <Shield className="h-4 w-4 text-red-500" />
+                <span>Admin Console</span>
+              </Link>
+            ) : (
+              <Link
+                href="/dashboard"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-800 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+              >
+                <LayoutDashboard className="h-4 w-4 text-emerald-500" />
+                <span>Customer Console</span>
+              </Link>
+            )}
 
             <Link
               href="/dashboard/profile"

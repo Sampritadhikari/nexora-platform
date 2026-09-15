@@ -42,12 +42,17 @@ export function CustomerSidebar() {
       <div>
         {/* Brand Header */}
         <div className="h-16 flex items-center justify-between px-5 border-b border-slate-200 dark:border-slate-800">
-          <BrandLogo href="/" size="sm" subtitle="Client Portal" />
+          <BrandLogo href="/" size="sm" subtitle="Customer Console" />
           <ThemeToggle />
         </div>
 
         {/* User Card */}
-        <div className="p-4 mx-3 my-3 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60">
+        <div className="p-3.5 mx-3 my-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
+              Customer Console
+            </span>
+          </div>
           <p className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate">
             {user?.name || "Customer Account"}
           </p>
