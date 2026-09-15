@@ -498,84 +498,168 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Bento Grid */}
+            {/* Bento Grid with Ultra-Premium Glowing Hover Effects */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Feature 1: NVMe */}
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-sm hover:shadow-md transition-all hover:border-emerald-500/50 group">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 mb-6 group-hover:scale-110 transition-transform">
-                  <Zap className="h-6 w-6" />
+              <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/90 p-8 shadow-sm hover:shadow-2xl hover:shadow-emerald-500/15 dark:hover:shadow-emerald-500/25 hover:-translate-y-2 hover:border-emerald-500/60 transition-all duration-300 backdrop-blur-md cursor-pointer">
+                {/* Top Glowing Laser Accent */}
+                <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Corner Radial Glow */}
+                <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-emerald-500/10 dark:bg-emerald-500/15 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shadow-sm transition-all duration-300 group-hover:bg-emerald-500 group-hover:text-white group-hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] group-hover:scale-110">
+                      <Zap className="h-6 w-6" />
+                    </div>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
+                      7,450 MB/s Pure NVMe
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                    PCIe 4.0 NVMe Storage
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Direct bus connection delivers up to 7,450 MB/s read operations. Database queries execute up to 5x faster than conventional cloud SATA disks.
+                  </p>
                 </div>
-                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">
-                  PCIe 4.0 NVMe Storage
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Direct bus connection delivers up to 7,450 MB/s read operations. Database queries execute up to 5x faster than conventional cloud SATA disks.
-                </p>
               </div>
 
               {/* Feature 2: Anycast DNS */}
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-sm hover:shadow-md transition-all hover:border-emerald-500/50 group">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 mb-6 group-hover:scale-110 transition-transform">
-                  <Globe className="h-6 w-6" />
+              <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/90 p-8 shadow-sm hover:shadow-2xl hover:shadow-blue-500/15 dark:hover:shadow-blue-500/25 hover:-translate-y-2 hover:border-blue-500/60 transition-all duration-300 backdrop-blur-md cursor-pointer">
+                {/* Top Glowing Laser Accent */}
+                <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Corner Radial Glow */}
+                <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-blue-500/10 dark:bg-blue-500/15 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-600 dark:text-blue-400 shadow-sm transition-all duration-300 group-hover:bg-blue-500 group-hover:text-white group-hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] group-hover:scale-110">
+                      <Globe className="h-6 w-6" />
+                    </div>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20">
+                      Sub-10ms Global DNS
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    Sub-10ms Anycast DNS
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    24 edge routing hubs across Mumbai, Singapore, Frankfurt, and North America announce your DNS records simultaneously for instantaneous resolution.
+                  </p>
                 </div>
-                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">
-                  Sub-10ms Anycast DNS
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  24 edge routing hubs across Mumbai, Singapore, Frankfurt, and North America announce your DNS records simultaneously for instantaneous resolution.
-                </p>
               </div>
 
               {/* Feature 3: DDoS & Firewall */}
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-sm hover:shadow-md transition-all hover:border-emerald-500/50 group">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 mb-6 group-hover:scale-110 transition-transform">
-                  <ShieldCheck className="h-6 w-6" />
+              <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/90 p-8 shadow-sm hover:shadow-2xl hover:shadow-purple-500/15 dark:hover:shadow-purple-500/25 hover:-translate-y-2 hover:border-purple-500/60 transition-all duration-300 backdrop-blur-md cursor-pointer">
+                {/* Top Glowing Laser Accent */}
+                <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Corner Radial Glow */}
+                <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-purple-500/10 dark:bg-purple-500/15 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-purple-500/20 bg-purple-500/10 text-purple-600 dark:text-purple-400 shadow-sm transition-all duration-300 group-hover:bg-purple-500 group-hover:text-white group-hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] group-hover:scale-110">
+                      <ShieldCheck className="h-6 w-6" />
+                    </div>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider text-purple-600 dark:text-purple-400 bg-purple-500/10 border border-purple-500/20">
+                      3-Sec Inline Mitigation
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                    Autonomous DDoS Shield
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Layer-3, 4, and 7 inline filtering mitigates volumetric flood attacks and HTTP scraping within 3 seconds without throttling legitimate visitors.
+                  </p>
                 </div>
-                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">
-                  Autonomous DDoS Shield
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Layer-3, 4, and 7 inline filtering mitigates volumetric flood attacks and HTTP scraping within 3 seconds without throttling legitimate visitors.
-                </p>
               </div>
 
               {/* Feature 4: 1-Click Installs */}
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-sm hover:shadow-md transition-all hover:border-emerald-500/50 group">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 mb-6 group-hover:scale-110 transition-transform">
-                  <Cpu className="h-6 w-6" />
+              <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/90 p-8 shadow-sm hover:shadow-2xl hover:shadow-amber-500/15 dark:hover:shadow-amber-500/25 hover:-translate-y-2 hover:border-amber-500/60 transition-all duration-300 backdrop-blur-md cursor-pointer">
+                {/* Top Glowing Laser Accent */}
+                <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Corner Radial Glow */}
+                <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-amber-500/10 dark:bg-amber-500/15 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400 shadow-sm transition-all duration-300 group-hover:bg-amber-500 group-hover:text-white group-hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] group-hover:scale-110">
+                      <Cpu className="h-6 w-6" />
+                    </div>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20">
+                      1-Click Auto Provision
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                    1-Click Modern Frameworks
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Instant deployment recipes for WordPress, Next.js, Node.js, Python FastAPI, Laravel, and Docker containers with automated database provisioning.
+                  </p>
                 </div>
-                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">
-                  1-Click Modern Frameworks
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Instant deployment recipes for WordPress, Next.js, Node.js, Python FastAPI, Laravel, and Docker containers with automated database provisioning.
-                </p>
               </div>
 
               {/* Feature 5: Automated Backups */}
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-sm hover:shadow-md transition-all hover:border-emerald-500/50 group">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-100 dark:bg-teal-950/60 text-teal-600 mb-6 group-hover:scale-110 transition-transform">
-                  <RefreshCw className="h-6 w-6" />
+              <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/90 p-8 shadow-sm hover:shadow-2xl hover:shadow-teal-500/15 dark:hover:shadow-teal-500/25 hover:-translate-y-2 hover:border-teal-500/60 transition-all duration-300 backdrop-blur-md cursor-pointer">
+                {/* Top Glowing Laser Accent */}
+                <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-teal-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Corner Radial Glow */}
+                <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-teal-500/10 dark:bg-teal-500/15 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-teal-500/20 bg-teal-500/10 text-teal-600 dark:text-teal-400 shadow-sm transition-all duration-300 group-hover:bg-teal-500 group-hover:text-white group-hover:shadow-[0_0_20px_rgba(20,184,166,0.5)] group-hover:scale-110">
+                      <RefreshCw className="h-6 w-6" />
+                    </div>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider text-teal-600 dark:text-teal-400 bg-teal-500/10 border border-teal-500/20">
+                      Nightly Offsite Vault
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                    Daily Cloud Snapshots
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Automated nightly offsite backups stored in geographically separate vaults. Restore entire databases or single files with 1-click simplicity.
+                  </p>
                 </div>
-                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">
-                  Daily Cloud Snapshots
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Automated nightly offsite backups stored in geographically separate vaults. Restore entire databases or single files with 1-click simplicity.
-                </p>
               </div>
 
               {/* Feature 6: Human Engineers */}
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-sm hover:shadow-md transition-all hover:border-emerald-500/50 group">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 mb-6 group-hover:scale-110 transition-transform">
-                  <Headphones className="h-6 w-6" />
+              <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/90 p-8 shadow-sm hover:shadow-2xl hover:shadow-rose-500/15 dark:hover:shadow-rose-500/25 hover:-translate-y-2 hover:border-rose-500/60 transition-all duration-300 backdrop-blur-md cursor-pointer">
+                {/* Top Glowing Laser Accent */}
+                <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Corner Radial Glow */}
+                <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-rose-500/10 dark:bg-rose-500/15 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400 shadow-sm transition-all duration-300 group-hover:bg-rose-500 group-hover:text-white group-hover:shadow-[0_0_20px_rgba(244,63,94,0.5)] group-hover:scale-110">
+                      <Headphones className="h-6 w-6" />
+                    </div>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider text-rose-600 dark:text-rose-400 bg-rose-500/10 border border-rose-500/20">
+                      24/7 Human Linux Team
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                    24/7 Dedicated Engineers
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    No automated chatbots or generic outsourced scripts. Connect directly with senior cloud Linux systems administrators within minutes.
+                  </p>
                 </div>
-                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">
-                  24/7 Dedicated Engineers
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  No automated chatbots or generic outsourced scripts. Connect directly with senior cloud Linux systems administrators within minutes.
-                </p>
               </div>
             </div>
           </div>
