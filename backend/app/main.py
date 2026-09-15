@@ -51,10 +51,11 @@ app = FastAPI(
     openapi_url="/openapi.json"
 )
 
-# CORS Middleware
+# CORS Middleware - Support localhost, preview, and Vercel domains
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.BACKEND_CORS_ORIGINS,
+    allow_origin_regex=r"^https?:\/\/.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
