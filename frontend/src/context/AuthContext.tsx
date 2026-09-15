@@ -13,6 +13,8 @@ export interface User {
   phone?: string;
   company?: string;
   address?: string;
+  avatar_url?: string;
+  picture?: string;
   created_at: string;
 }
 
@@ -155,10 +157,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // 2. Attempt backend authentication
     try {
       const res = await authApi.googleLogin(credential);
+      const userObj: User = {
+        ...res.user,
+        avatar_url: res.user?.avatar_url || googlePayload?.picture || "",
+        picture: res.user?.avatar_url || googlePayload?.picture || "",
+      };
       localStorage.setItem("nexora_token", res.access_token);
-      localStorage.setItem("nexora_user", JSON.stringify(res.user));
+      localStorage.setItem("nexora_user", JSON.stringify(userObj));
       setToken(res.access_token);
-      setUser(res.user);
+      setUser(userObj);
     } catch (err: any) {
       // 3. Fallback: If backend is unreachable or offline (e.g. on Vercel preview),
       // create a valid verified user session directly from the authentic Google ID token
@@ -169,6 +176,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           email: googlePayload.email,
           role: "CUSTOMER",
           status: "ACTIVE",
+          avatar_url: googlePayload.picture || "",
+          picture: googlePayload.picture || "",
           created_at: new Date().toISOString(),
         };
         localStorage.setItem("nexora_token", credential);

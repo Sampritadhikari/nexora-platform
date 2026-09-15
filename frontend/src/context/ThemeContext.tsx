@@ -18,28 +18,28 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("nexora_theme") as Theme | null;
-    if (saved) {
-      setThemeState(saved);
-      applyTheme(saved);
-    } else {
-      // Default to Light Mode as requested
-      setThemeState("light");
-      applyTheme("light");
-    }
+    // User requested: Har bar website khole to light theme hi default show ho!
+    const sessionTheme = sessionStorage.getItem("nexora_theme") as Theme | null;
+    const initialTheme: Theme = sessionTheme === "dark" ? "dark" : "light";
+    setThemeState(initialTheme);
+    applyTheme(initialTheme);
+    localStorage.setItem("nexora_theme", initialTheme);
   }, []);
 
   const applyTheme = (newTheme: Theme) => {
     const root = document.documentElement;
     if (newTheme === "dark") {
       root.classList.add("dark");
+      root.classList.remove("light");
     } else {
       root.classList.remove("dark");
+      root.classList.add("light");
     }
   };
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
+    sessionStorage.setItem("nexora_theme", newTheme);
     localStorage.setItem("nexora_theme", newTheme);
     applyTheme(newTheme);
   };

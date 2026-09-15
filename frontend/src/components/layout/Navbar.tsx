@@ -9,6 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { ThemeToggle } from "./ThemeToggle";
 import { BrandLogo } from "./BrandLogo";
+import { UserProfileDropdown } from "./UserProfileDropdown";
 import { Button } from "../ui/Button";
 
 export function Navbar() {
@@ -71,26 +72,24 @@ export function Navbar() {
 
           {/* Auth Controls */}
           {isAuthenticated ? (
-            <div className="hidden sm:flex items-center gap-2">
-              <Link href={isAdmin ? "/admin" : "/dashboard"}>
-                <Button variant="outline" size="sm" className="gap-2 hover:border-brand-500/50 hover:shadow-[0_0_20px_-3px_rgba(16,185,129,0.35)] transition-all duration-200">
-                  <User className="h-3.5 w-3.5" />
-                  {isAdmin ? "Admin Console" : "Dashboard"}
+            <div className="flex items-center gap-2">
+              <Link href={isAdmin ? "/admin" : "/dashboard"} className="hidden sm:inline-flex">
+                <Button variant="outline" size="sm" className="gap-1.5 text-xs font-semibold hover:border-emerald-500/60 hover:shadow-sm transition-all duration-200">
+                  <Server className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <span>{isAdmin ? "Admin Console" : "Dashboard"}</span>
                 </Button>
               </Link>
-              <Button variant="ghost" size="sm" onClick={logout} className="hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50/50 dark:hover:bg-red-950/20 hover:shadow-[0_0_15px_-3px_rgba(239,68,68,0.3)] transition-all duration-200">
-                Sign Out
-              </Button>
+              <UserProfileDropdown />
             </div>
           ) : (
             <div className="hidden sm:flex items-center gap-2">
               <Link href="/login">
-                <Button variant="ghost" size="sm" className="hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50/50 dark:hover:bg-brand-950/30 hover:shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)] transition-all duration-200">
+                <Button variant="ghost" size="sm" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
                   Sign In
                 </Button>
               </Link>
               <Link href="/register">
-                <Button size="sm" className="gap-1.5 shadow-md shadow-brand-500/20 hover:shadow-[0_0_22px_-2px_rgba(16,185,129,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+                <Button size="sm" className="gap-1.5 shadow-md shadow-emerald-500/20 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
                   Get Started
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Button>
@@ -126,7 +125,26 @@ export function Navbar() {
           </nav>
           <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
             {isAuthenticated ? (
-              <>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+                  {user?.avatar_url ? (
+                    <img
+                      src={user.avatar_url}
+                      alt={user.name || "User"}
+                      className="h-10 w-10 rounded-full object-cover ring-2 ring-emerald-500/50 shadow-sm"
+                    />
+                  ) : (
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-bold text-xs shadow-sm">
+                      {user?.name?.slice(0, 2).toUpperCase() || "U"}
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
+                      {user?.name || "Member"}
+                    </p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+                  </div>
+                </div>
                 <Link
                   href={isAdmin ? "/admin" : "/dashboard"}
                   onClick={() => setMobileMenuOpen(false)}
@@ -135,10 +153,17 @@ export function Navbar() {
                     {isAdmin ? "Admin Console" : "Customer Dashboard"}
                   </Button>
                 </Link>
-                <Button variant="outline" className="w-full" onClick={() => { logout(); setMobileMenuOpen(false); }}>
+                <Button
+                  variant="outline"
+                  className="w-full text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30"
+                  onClick={() => {
+                    logout();
+                    setMobileMenuOpen(false);
+                  }}
+                >
                   Sign Out
                 </Button>
-              </>
+              </div>
             ) : (
               <>
                 <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
