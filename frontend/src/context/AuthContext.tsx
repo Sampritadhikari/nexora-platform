@@ -24,6 +24,7 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (data: any) => Promise<void>;
+  loginWithGoogle: (credential: string) => Promise<void>;
   logout: () => void;
   refreshUser: () => Promise<void>;
 }
@@ -73,6 +74,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(res.user);
   };
 
+  const loginWithGoogle = async (credential: string) => {
+    const res = await authApi.googleLogin(credential);
+    localStorage.setItem("nexora_token", res.access_token);
+    setToken(res.access_token);
+    setUser(res.user);
+  };
+
   const logout = () => {
     localStorage.removeItem("nexora_token");
     setToken(null);
@@ -99,6 +107,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         loading,
         login,
         register,
+        loginWithGoogle,
         logout,
         refreshUser,
       }}

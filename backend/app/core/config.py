@@ -47,6 +47,10 @@ class Settings(BaseSettings):
     RAZORPAY_KEY_SECRET: Optional[str] = "rzp_test_secret_placeholder"
     EMAIL_PROVIDER_API_KEY: Optional[str] = None
     
+    # Google OAuth
+    GOOGLE_CLIENT_ID: Optional[str] = None
+    GOOGLE_CLIENT_SECRET: Optional[str] = None
+    
     # Currency & Tax
     DEFAULT_CURRENCY: str = "INR"
     TAX_RATE_PERCENT: float = 18.0  # e.g., 18% GST

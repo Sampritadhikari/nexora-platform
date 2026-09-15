@@ -34,6 +34,9 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
     user: UserResponse
 
+class GoogleAuthRequest(BaseModel):
+    credential: str
+
 class ForgotPasswordRequest(BaseModel):
     email: EmailStr
 

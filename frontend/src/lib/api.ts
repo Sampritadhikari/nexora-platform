@@ -62,6 +62,7 @@ export const authApi = {
   updateProfile: (data: any) => apiFetch<any>("/auth/profile", { method: "PUT", body: JSON.stringify(data) }),
   changePassword: (data: any) => apiFetch<any>("/auth/change-password", { method: "POST", body: JSON.stringify(data) }),
   forgotPassword: (email: string) => apiFetch<any>("/auth/forgot-password", { method: "POST", body: JSON.stringify({ email }) }),
+  googleLogin: (credential: string) => apiFetch<{ access_token: string; user: any }>("/auth/google", { method: "POST", body: JSON.stringify({ credential }) }),
 };
 
 // --- Domains APIs ---

@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { BrandLogo } from "@/components/layout/BrandLogo";
+import { GoogleSignInButton } from "@/components/auth/GoogleSignInButton";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -85,6 +86,22 @@ export default function RegisterPage() {
               {error}
             </div>
           )}
+
+          {/* Google OAuth One-Click Registration */}
+          <div className="mb-6">
+            <GoogleSignInButton text="Sign up with Google" onError={(err) => setError(err)} />
+            
+            <div className="relative my-5">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-slate-200 dark:border-slate-800" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white dark:bg-slate-900 px-3 text-slate-400 font-medium">
+                  Or register with email
+                </span>
+              </div>
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

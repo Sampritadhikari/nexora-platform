@@ -1,12 +1,15 @@
 import uuid
+import httpx
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.api.deps import get_db, get_current_user
+from app.core.config import settings
 from app.core.security import hash_password, verify_password, create_access_token
 from app.models.models import User
 from app.schemas.schemas import (
     UserRegister, UserLogin, TokenResponse, UserResponse,
-    ForgotPasswordRequest, ProfileUpdateRequest, PasswordChangeRequest
+    ForgotPasswordRequest, ProfileUpdateRequest, PasswordChangeRequest,
+    GoogleAuthRequest
 )
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -54,6 +57,76 @@ def login(data: UserLogin, db: Session = Depends(get_db)):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Account is suspended. Please reach out to support."
         )
+
+    token = create_access_token(subject=user.id, role=user.role)
+    return TokenResponse(access_token=token, user=UserResponse.model_validate(user))
+
+@router.post("/google", response_model=TokenResponse)
+def google_auth(data: GoogleAuthRequest, db: Session = Depends(get_db)):
+    """
+    Authenticate or register user via verified Google OAuth ID token.
+    Validates token audience against configured Google Client ID.
+    """
+    if not data.credential:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Missing Google authentication credential."
+        )
+
+    try:
+        token_info_url = f"https://oauth2.googleapis.com/tokeninfo?id_token={data.credential}"
+        resp = httpx.get(token_info_url, timeout=8.0)
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Unable to reach Google authentication servers. Please try again."
+        )
+
+    if resp.status_code != 200:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired Google authorization token."
+        )
+
+    payload = resp.json()
+    token_aud = payload.get("aud")
+
+    if settings.GOOGLE_CLIENT_ID and token_aud != settings.GOOGLE_CLIENT_ID:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Google Client ID mismatch. Token audience is untrusted."
+        )
+
+    email = payload.get("email")
+    if not email:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Google profile did not provide an email address."
+        )
+
+    email_clean = email.lower().strip()
+    name = payload.get("name") or email_clean.split("@")[0]
+
+    # Find existing or create new customer
+    user = db.query(User).filter(User.email == email_clean).first()
+    if not user:
+        user = User(
+            id=str(uuid.uuid4()),
+            name=name.strip(),
+            email=email_clean,
+            password_hash=hash_password(str(uuid.uuid4())), # Strong random secret
+            role="CUSTOMER",
+            status="ACTIVE"
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+    else:
+        if user.status != "ACTIVE":
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Account is suspended. Please contact support."
+            )
 
     token = create_access_token(subject=user.id, role=user.role)
     return TokenResponse(access_token=token, user=UserResponse.model_validate(user))
