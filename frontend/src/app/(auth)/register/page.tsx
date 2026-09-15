@@ -3,12 +3,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ShieldCheck, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { BRAND } from "@/config/brand";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { BrandLogo } from "@/components/layout/BrandLogo";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -66,14 +67,9 @@ export default function RegisterPage() {
       </div>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <Link href="/" className="inline-flex items-center gap-2 mb-6 group">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white shadow-md shadow-brand-600/30 group-hover:bg-brand-700 transition-all">
-            <ShieldCheck className="h-6 w-6" />
-          </div>
-          <span className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-            {BRAND.name}
-          </span>
-        </Link>
+        <div className="flex justify-center mb-6">
+          <BrandLogo href="/" size="lg" />
+        </div>
         <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
           Create your account
         </h2>

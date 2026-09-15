@@ -12,12 +12,12 @@ import {
   Cpu,
   ArrowLeft,
   LogOut,
-  ShieldCheck,
 } from "lucide-react";
 import { BRAND } from "@/config/brand";
 import { useAuth } from "@/context/AuthContext";
 import { ThemeToggle } from "./ThemeToggle";
 import { Badge } from "../ui/Badge";
+import { BrandLogo } from "./BrandLogo";
 
 export function AdminSidebar() {
   const pathname = usePathname();
@@ -36,18 +36,8 @@ export function AdminSidebar() {
     <aside className="w-64 shrink-0 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-[#080B0A] flex flex-col justify-between min-h-screen">
       <div>
         {/* Header */}
-        <div className="h-16 flex items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-600 text-white">
-              <ShieldCheck className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-display text-base font-bold tracking-tight text-slate-900 dark:text-white">
-                {BRAND.name}
-              </span>
-              <Badge variant="danger" className="text-[10px] px-1.5 py-0">ADMIN</Badge>
-            </div>
-          </div>
+        <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200 dark:border-slate-800">
+          <BrandLogo href="/admin" size="md" subtitle="Admin Console" />
           <ThemeToggle />
         </div>
 

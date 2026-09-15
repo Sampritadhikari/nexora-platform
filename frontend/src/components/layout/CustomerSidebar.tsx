@@ -14,11 +14,11 @@ import {
   User,
   Settings,
   LogOut,
-  ShieldCheck,
 } from "lucide-react";
 import { BRAND } from "@/config/brand";
 import { useAuth } from "@/context/AuthContext";
 import { ThemeToggle } from "./ThemeToggle";
+import { BrandLogo } from "./BrandLogo";
 
 export function CustomerSidebar() {
   const pathname = usePathname();
@@ -41,15 +41,8 @@ export function CustomerSidebar() {
       {/* Top Section */}
       <div>
         {/* Brand Header */}
-        <div className="h-16 flex items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white">
-              <ShieldCheck className="h-4 w-4" />
-            </div>
-            <span className="font-display text-base font-bold tracking-tight text-slate-900 dark:text-white">
-              {BRAND.name}
-            </span>
-          </Link>
+        <div className="h-16 flex items-center justify-between px-5 border-b border-slate-200 dark:border-slate-800">
+          <BrandLogo href="/" size="sm" subtitle="Client Portal" />
           <ThemeToggle />
         </div>
 

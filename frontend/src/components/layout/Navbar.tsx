@@ -3,11 +3,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingCart, Menu, X, Globe, Server, ArrowRight, ShieldCheck, User } from "lucide-react";
+import { ShoppingCart, Menu, X, Globe, Server, ArrowRight, User } from "lucide-react";
 import { BRAND } from "@/config/brand";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { ThemeToggle } from "./ThemeToggle";
+import { BrandLogo } from "./BrandLogo";
 import { Button } from "../ui/Button";
 
 export function Navbar() {
@@ -29,16 +30,7 @@ export function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white shadow-md shadow-brand-600/30 group-hover:bg-brand-700 transition-all">
-              <ShieldCheck className="h-5 w-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-display text-lg font-bold tracking-tight text-slate-900 dark:text-white">
-                {BRAND.name}
-              </span>
-            </div>
-          </Link>
+          <BrandLogo href="/" size="md" />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1.5">

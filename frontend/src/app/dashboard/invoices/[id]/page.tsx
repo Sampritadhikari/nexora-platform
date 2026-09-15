@@ -9,7 +9,8 @@ import { BRAND } from "@/config/brand";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { ArrowLeft, Printer, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Printer } from "lucide-react";
+import { BrandLogo } from "@/components/layout/BrandLogo";
 
 export default function InvoiceDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -71,13 +72,8 @@ export default function InvoiceDetailsPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start gap-6 pb-8 border-b border-slate-200 dark:border-slate-800">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white">
-                <ShieldCheck className="h-4 w-4" />
-              </div>
-              <span className="font-display text-2xl font-extrabold tracking-tight">
-                {BRAND.name}
-              </span>
+            <div className="mb-2">
+              <BrandLogo size="lg" />
             </div>
             <p className="text-xs text-slate-500 max-w-xs leading-relaxed">
               {BRAND.legalName}<br />

@@ -21,6 +21,7 @@ import {
   Layers,
   Cpu,
 } from "lucide-react";
+import { BrandLogo } from "@/components/layout/BrandLogo";
 
 export default function AdminOverviewPage() {
   const [stats, setStats] = useState<any>(null);
@@ -34,16 +35,19 @@ export default function AdminOverviewPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-              Executive Administration Console
-            </h1>
-            <Badge variant="danger">PRODUCTION V1</Badge>
+        <div className="flex items-center gap-3.5">
+          <BrandLogo href="/admin" size="lg" showText={false} />
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                Executive Administration Console
+              </h1>
+              <Badge variant="danger">PRODUCTION V1</Badge>
+            </div>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Real-time platform telemetry powered by PostgreSQL database metrics. Zero fabricated numbers.
+            </p>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Real-time platform telemetry powered by PostgreSQL database metrics. Zero fabricated numbers.
-          </p>
         </div>
         <div className="flex items-center gap-2">
           <Link href="/admin/products">
