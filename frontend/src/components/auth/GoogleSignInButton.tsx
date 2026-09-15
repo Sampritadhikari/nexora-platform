@@ -40,7 +40,7 @@ export function GoogleSignInButton({
     try {
       setLoading(true);
       await loginWithGoogle(response.credential);
-      router.push("/dashboard");
+      window.location.href = "/dashboard";
     } catch (err: any) {
       const msg = err.message || "Failed to log in with Google. Please try again.";
       if (onError) onError(msg);

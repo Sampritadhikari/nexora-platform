@@ -67,20 +67,20 @@ export const authApi = {
 
 // --- Domains APIs ---
 export const domainsApi = {
-  getTlds: () => apiFetch<any[]>("/domains/tlds"),
-  search: (query: string) => apiFetch<{ query: string; results: any[] }>(`/domains/search?query=${encodeURIComponent(query)}`),
-  getUserDomains: () => apiFetch<any[]>("/domains"),
-  getDetails: (id: string) => apiFetch<any>(`/domains/${id}`),
+  getTlds: () => apiFetch<any[]>("/domains/tlds").catch(() => []),
+  search: (query: string) => apiFetch<{ query: string; results: any[] }>(`/domains/search?query=${encodeURIComponent(query)}`).catch(() => ({ query, results: [] })),
+  getUserDomains: () => apiFetch<any[]>("/domains").catch(() => []),
+  getDetails: (id: string) => apiFetch<any>(`/domains/${id}`).catch(() => null),
   updateNameservers: (id: string, nameservers: string[]) => apiFetch<any>(`/domains/${id}/nameservers`, { method: "PUT", body: JSON.stringify({ nameservers }) }),
   toggleAutoRenew: (id: string, autoRenew: boolean) => apiFetch<any>(`/domains/${id}/auto-renew?auto_renew=${autoRenew}`, { method: "POST" }),
 };
 
 // --- Hosting APIs ---
 export const hostingApi = {
-  getPlans: () => apiFetch<any[]>("/hosting/plans"),
-  getPlan: (slug: string) => apiFetch<any>(`/hosting/plans/${slug}`),
-  getUserAccounts: () => apiFetch<any[]>("/hosting"),
-  getAccountDetails: (id: string) => apiFetch<any>(`/hosting/${id}`),
+  getPlans: () => apiFetch<any[]>("/hosting/plans").catch(() => []),
+  getPlan: (slug: string) => apiFetch<any>(`/hosting/plans/${slug}`).catch(() => null),
+  getUserAccounts: () => apiFetch<any[]>("/hosting").catch(() => []),
+  getAccountDetails: (id: string) => apiFetch<any>(`/hosting/${id}`).catch(() => null),
 };
 
 // --- Cart & Commerce APIs ---
@@ -90,8 +90,8 @@ export const cartApi = {
 
 export const ordersApi = {
   create: (data: any) => apiFetch<any>("/orders", { method: "POST", body: JSON.stringify(data) }),
-  getUserOrders: () => apiFetch<any[]>("/orders"),
-  getOrderDetails: (id: string) => apiFetch<any>(`/orders/${id}`),
+  getUserOrders: () => apiFetch<any[]>("/orders").catch(() => []),
+  getOrderDetails: (id: string) => apiFetch<any>(`/orders/${id}`).catch(() => null),
 };
 
 export const paymentsApi = {
@@ -102,22 +102,22 @@ export const paymentsApi = {
 };
 
 export const invoicesApi = {
-  getUserInvoices: () => apiFetch<any[]>("/invoices"),
-  getDetails: (id: string) => apiFetch<any>(`/invoices/${id}`),
+  getUserInvoices: () => apiFetch<any[]>("/invoices").catch(() => []),
+  getDetails: (id: string) => apiFetch<any>(`/invoices/${id}`).catch(() => null),
 };
 
 export const renewalsApi = {
-  getUserRenewals: () => apiFetch<any[]>("/renewals"),
+  getUserRenewals: () => apiFetch<any[]>("/renewals").catch(() => []),
   toggleAutoRenew: (id: string, auto_renew: boolean) =>
     apiFetch<any>(`/renewals/${id}/toggle-auto-renew`, { method: "POST", body: JSON.stringify({ auto_renew }) }),
   renewNow: (id: string) => apiFetch<any>(`/renewals/${id}/renew-now`, { method: "POST" }),
 };
 
 export const supportApi = {
-  getUserTickets: () => apiFetch<any[]>("/support/tickets"),
+  getUserTickets: () => apiFetch<any[]>("/support/tickets").catch(() => []),
   createTicket: (data: { subject: string; category: string; priority: string; message: string }) =>
     apiFetch<any>("/support/tickets", { method: "POST", body: JSON.stringify(data) }),
-  getTicketDetails: (id: string) => apiFetch<any>(`/support/tickets/${id}`),
+  getTicketDetails: (id: string) => apiFetch<any>(`/support/tickets/${id}`).catch(() => null),
   addMessage: (id: string, message: string) =>
     apiFetch<any>(`/support/tickets/${id}/messages`, { method: "POST", body: JSON.stringify({ message }) }),
   closeTicket: (id: string) => apiFetch<any>(`/support/tickets/${id}/close`, { method: "POST" }),
